@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Exit Exam - Management & Business Studies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header for Home Page -->
+    <div class="header hidden" id="homeHeader">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="menu-btn" id="menuBtn">☰</button>
+            <h1 id="headerTitle">Ethiopian Exit Exam</h1>
+        </div>
+        <div class="user-info">
+            <span id="welcomeText">Welcome</span>
+            <button class="btn btn-secondary" id="logoutBtn" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+        </div>
+    </div>
+
+    <!-- Exam Header with Timer -->
+    <div class="exam-timer-header hidden" id="examHeader">
+        <div class="exam-info">
+            <button class="btn btn-home" id="homeBtn" style="width: auto; padding: 0.5rem 1rem;">🏠 Home</button>
+            <h1 id="examTitle">Exam in Progress</h1>
+        </div>
+        <div class="timer" id="timer">03:00:00</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="avatar" id="userAvatar">👤</div>
+            <h3 id="userName">User</h3>
+            <p>Ethiopian Exit Exam</p>
+        </div>
+        <div class="sidebar-content">
+            <button class="sidebar-item mock-exam" onclick="startMockExam()">
+                <span class="icon">🎯</span>
+                <div>
+                    <div style="font-weight: bold;">Mock Exam</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">All Courses Combined</div>
+                </div>
+            </button>
+            <div style="padding: 1rem 1.5rem; font-weight: bold; color: var(--flag-green); border-bottom: 1px solid #eee;">
+                Available Courses
+            </div>
+            <div id="coursesList"></div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
+        <div class="login-card">
+            <div class="logo">🎓</div>
+            <h1>Welcome to Ethiopian Exit Exam</h1>
+            <p class="subtitle">Management & Business Studies</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="nameInput">Full Name</label>
+                    <input type="text" id="nameInput" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <button type="submit" class="btn">Enter Exam Portal</button>
+            </form>
+            <div class="mt-2" style="font-size: 0.9rem; color: #666; text-align: center;">
+                • 100 unique questions per exam<br>
+                • 3 hours time limit<br>
+                • Instant results and feedback
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div class="container hidden" id="homePage">
+        <div class="card">
+            <div style="background: linear-gradient(135deg, var(--flag-red), var(--flag-yellow)); color: white; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <div style="font-size: 3rem;">🎯</div>
+                    <div style="flex: 1;">
+                        <h2 style="margin-bottom: 0.5rem;">Mock Exam</h2>
+                        <p style="margin-bottom: 1rem; opacity: 0.9;">Test all courses at once - 100 unique questions</p>
+                        <button class="btn" onclick="startMockExam()" style="background: white; color: var(--flag-red); width: auto;">
+                            Start Mock Exam
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="color: var(--flag-green); margin-bottom: 1rem;">Available Courses</h2>
+        <div class="course-grid" id="coursesGrid"></div>
+    </div>
+
+    <!-- Exam Page -->
+    <div class="container hidden" id="examPage">
+        <div class="exam-header">
+            <div class="progress-info">
+                <span id="questionProgress">Question 1 of 100</span>
+                <span id="progressPercent">1% Complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 1%"></div>
+            </div>
+        </div>
+
+        <div class="question-card" id="questionCard">
+            <!-- Question content will be inserted here -->
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-secondary hidden" id="prevBtn">← Previous</button>
+            <button class="btn" id="submitBtn">Submit Answer</button>
+            <button class="btn btn-warning hidden" id="nextBtn">Next Question →</button>
+        </div>
+    </div>
+
+    <!-- Results Page -->
+    <div class="container hidden" id="resultsPage">
+        <div class="results-page">
+            <div class="results-header" id="resultsHeader">
+                <div class="icon" id="resultsIcon">🎉</div>
+                <h2 id="resultsTitle">Congratulations!</h2>
+                <p id="resultsSubtitle">You have passed the exam!</p>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-item">
+                    <div class="result-label">Candidate</div>
+                    <div class="result-value" id="resultName">-</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Course</div>
+                    <div class="result-value" id="resultCourse">-</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Score</div>
+                    <div class="result-value" id="resultScore">-</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Percentage</div>
+                    <div class="result-value" id="resultPercentage">-</div>
+                </div>
+            </div>
+
+            <div class="status-badge" id="statusBadge">PASSED</div>
+
+            <div class="actions">
+                <button class="btn btn-danger" onclick="downloadResults()">📥 Download Results</button>
+                <button class="btn btn-warning" onclick="retakeExam()">🔄 Retake Exam</button>
+                <button class="btn btn-secondary" onclick="goHome()">🏠 Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="overlay hidden" id="confirmOverlay"></div>
+    <div class="confirm-dialog hidden" id="confirmDialog">
+        <h3 id="confirmTitle">Confirm Action</h3>
+        <p id="confirmMessage">Are you sure?</p>
+        <div class="buttons">
+            <button class="btn btn-secondary" id="confirmCancel">Cancel</button>
+            <button class="btn btn-danger" id="confirmOk">Confirm</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
