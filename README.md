@@ -281,22 +281,6 @@ This project is released under the MIT License, making it free to use, modify, a
 - ❌ **No liability** for exam results or outcomes
 - ❌ **Attribution required** for derivative works
 
-## 🙏 Acknowledgments
-
-### Credits
-- **Ethiopian Ministry of Education** - For curriculum guidance
-- **Open source community** - For development inspiration
-- **Beta testers** - Students and educators who provided feedback
-- **Contributors** - Everyone who helped improve this project
-
-### Special Thanks
-- Ethiopian students preparing for exit exams
-- Educators supporting student success
-- Open source developers sharing knowledge
-- The broader educational technology community
-
----
-
 **Made with ❤️ for Ethiopian students**
 
 *Empowering education through technology*
